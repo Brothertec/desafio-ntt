@@ -1,0 +1,23 @@
+{
+  "name": "desafio-ntt",
+  "version": "1.0.0",
+  "description": "",
+  "homepage": "https://github.com/Brothertec/desafio-ntt#readme",
+  "bugs": {
+    "url": "https://github.com/Brothertec/desafio-ntt/issues"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/Brothertec/desafio-ntt.git"
+  },
+  "license": "ISC",
+  "author": "",
+  "type": "commonjs",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "dependencies": {
+    "cypress": "^15.18.1"
+  }
+}
