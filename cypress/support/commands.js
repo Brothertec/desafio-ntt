@@ -190,3 +190,25 @@ Cypress.Commands.add('verificaQueProdutoNaoPodeSerDeletado', ( status, message )
         expect(response.body.message).to.eq(message);
     })
 })
+
+Cypress.Commands.add('deletaCarrinho', () => {
+    cy.request({
+        method: 'DELETE',
+        url: `${Cypress.expose('apiUrl')}/carrinhos/cancelar-compra`,
+        headers: {
+            Authorization: `${Cypress.expose('userToken')}`,
+        },
+        failOnStatusCode: false,
+    }).as('deleteCart');
+})
+
+Cypress.Commands.add('deletaUsuarioRandomico', () => {
+    cy.request({
+        method: 'DELETE',
+        url: `${Cypress.expose('apiUrl')}/usuarios/${Cypress.expose('userId')}`,
+        headers: {
+            Authorization: `${Cypress.expose('adminToken')}`,
+        },
+        failOnStatusCode: false,
+    }).as('deleteUser');
+})
