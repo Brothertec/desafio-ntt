@@ -171,20 +171,22 @@ Cypress.Commands.add('verificaQueOEstoqueFoiAtualizado', () => {
     })
 })
 
-Cypress.Commands.add('deletaProduto', () => {
+Cypress.Commands.add('deletaProduto', ( type ) => {
+    const auth = type === "admin" ? Cypress.expose('adminToken') : Cypress.expose('userToken');
+    const product = Cypress.expose('productId');
     cy.request({
         method: 'DELETE',
-        url: `${Cypress.expose('apiUrl')}/produtos/${Cypress.expose('productId')}`,
+        url: `${Cypress.expose('apiUrl')}/produtos/${product}`,
         headers: {
-            Authorization: `${Cypress.expose('adminToken')}`,
+            Authorization: `${auth}`,
         },
         failOnStatusCode: false,
     }).as('deleteProduct')
 })
 
-Cypress.Commands.add('verificaQueProdutoNaoPodeSerDeletado', () => {
+Cypress.Commands.add('verificaQueProdutoNaoPodeSerDeletado', ( status, message ) => {
     cy.get('@deleteProduct').then((response) => {
-        expect(response.status).to.eq(400);
-        expect(response.body.message).to.eq('Não é permitido excluir produto que faz parte de carrinho');
+        expect(response.status).to.eq(status);
+        expect(response.body.message).to.eq(message);
     })
 })
