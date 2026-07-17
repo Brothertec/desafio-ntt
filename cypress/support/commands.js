@@ -170,3 +170,21 @@ Cypress.Commands.add('verificaQueOEstoqueFoiAtualizado', () => {
         expect(response.body.quantidade).to.be.eq(Cypress.expose('productQuantity') - 1);
     })
 })
+
+Cypress.Commands.add('deletaProduto', () => {
+    cy.request({
+        method: 'DELETE',
+        url: `${Cypress.expose('apiUrl')}/produtos/${Cypress.expose('productId')}`,
+        headers: {
+            Authorization: `${Cypress.expose('adminToken')}`,
+        },
+        failOnStatusCode: false,
+    }).as('deleteProduct')
+})
+
+Cypress.Commands.add('verificaQueProdutoNaoPodeSerDeletado', () => {
+    cy.get('@deleteProduct').then((response) => {
+        expect(response.status).to.eq(400);
+        expect(response.body.message).to.eq('Não é permitido excluir produto que faz parte de carrinho');
+    })
+})
