@@ -21,10 +21,14 @@ export default class CadastroProdutosPage extends NavPage {
         const productQuantity = quantidade || faker.number.int({ min: 1, max: 100 });
         const productImage = imagem || this.defaultImage;
 
-        cy.get(this.nomeInput).clear().type(productName);
-        cy.get(this.precoInput).clear().type(productPrice);
-        cy.get(this.descricaoInput).clear().type(productDescription);
-        cy.get(this.quantidadeInput).clear().type(productQuantity);
+        cy.get(this.nomeInput).clear();
+        cy.get(this.nomeInput).type(productName);
+        cy.get(this.precoInput).clear();
+        cy.get(this.precoInput).type(productPrice);
+        cy.get(this.descricaoInput).clear();
+        cy.get(this.descricaoInput).type(productDescription);
+        cy.get(this.quantidadeInput).clear();
+        cy.get(this.quantidadeInput).type(productQuantity);
         cy.get(this.imagemInput).selectFile(productImage);
         Cypress.expose('productName', productName);
         Cypress.expose('productPrice', productPrice);

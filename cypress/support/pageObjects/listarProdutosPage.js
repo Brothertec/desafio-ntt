@@ -12,8 +12,7 @@ export default class ListarProdutosPage extends NavPage {
     }
 
     verifyProdutoCreated( nome, preco, descricao, quantidade, imagem ) {
-        const linhaProduto = cy.get(this.produtosTable).contains(nome).parent('tr');
-        linhaProduto.within(() => {
+        cy.get(this.produtosTable).contains(nome).parent('tr').within(() => {
             cy.get('td').eq(0).should('have.text', nome);
             cy.get('td').eq(1).should('have.text', preco);
             cy.get('td').eq(2).should('have.text', descricao);
@@ -27,15 +26,13 @@ export default class ListarProdutosPage extends NavPage {
     }
 
     clickEditarButton( nome ) {
-        const linhaProduto = cy.get(this.produtosTable).contains(nome).parent('tr');
-        linhaProduto.within(() => {
+        cy.get(this.produtosTable).contains(nome).parent('tr').within(() => {
             cy.get('button').contains('Editar').click();
         });
     }
 
     clickExcluirButton( nome ) {
-        const linhaProduto = cy.get(this.produtosTable).contains(nome).parent('tr');
-        linhaProduto.within(() => {
+        cy.get(this.produtosTable).contains(nome).parent('tr').within(() => {
             cy.get('button').contains('Excluir').click();
         });
     }
