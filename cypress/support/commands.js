@@ -26,7 +26,7 @@
 
 import { faker } from '@faker-js/faker';
 
-Cypress.Commands.add('criaApiAdminUserELoga', () => {
+Cypress.Commands.add('criaAdminUserELoga', () => {
     cy.request({
         method: 'POST',
         url: `${Cypress.expose('apiUrl')}/login`,

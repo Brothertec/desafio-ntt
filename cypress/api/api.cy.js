@@ -1,6 +1,6 @@
 describe('Testes de API', () => {
   before(() => {
-    cy.criaApiAdminUserELoga();
+    cy.criaAdminUserELoga();
     cy.criaUsuarioRandomicoELoga();
     cy.criaProdutoRandomico();
   })
