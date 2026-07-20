@@ -17,13 +17,17 @@
   "scripts": {
     "open": "cypress open",
     "test": "cypress run",
-    "lint": "eslint ."
+    "lint": "eslint .",
+    "format": "prettier --write .",
+    "format:check": "prettier --check ."
   },
   "dependencies": {
     "@faker-js/faker": "^10.5.0",
     "cypress": "^15.18.1",
     "cypress-mochawesome-reporter": "^4.0.2",
     "eslint": "^10.7.0",
-    "eslint-plugin-cypress": "^6.4.3"
+    "eslint-config-prettier": "^10.1.8",
+    "eslint-plugin-cypress": "^6.4.3",
+    "prettier": "^3.9.5"
   }
 }
