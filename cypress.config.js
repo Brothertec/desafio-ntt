@@ -9,9 +9,12 @@ module.exports = defineConfig({
       apiUrl: 'https://serverest.dev',
     },
     specPattern: 'cypress/**/*.cy.{js,jsx,ts,tsx}',
+    defaultCommandTimeout: 10000,
+    pageLoadTimeout: 10000,
+    reporter: 'cypress-mochawesome-reporter',
     testIsolation: true,
     setupNodeEvents(on, config) {
-      // implement node event listeners here
+      require('cypress-mochawesome-reporter/plugin')(on)
     },
   },
 });

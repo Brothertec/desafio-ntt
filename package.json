@@ -15,10 +15,12 @@
   "type": "commonjs",
   "main": "index.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "open": "cypress open",
+    "test": "cypress run"
   },
   "dependencies": {
     "@faker-js/faker": "^10.5.0",
-    "cypress": "^15.18.1"
+    "cypress": "^15.18.1",
+    "cypress-mochawesome-reporter": "^4.0.2"
   }
 }
