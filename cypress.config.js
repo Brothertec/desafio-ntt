@@ -1,4 +1,4 @@
-const { defineConfig } = require("cypress");
+const { defineConfig } = require('cypress');
 
 module.exports = defineConfig({
   allowCypressEnv: false,
@@ -14,7 +14,7 @@ module.exports = defineConfig({
     reporter: 'cypress-mochawesome-reporter',
     testIsolation: true,
     setupNodeEvents(on, config) {
-      require('cypress-mochawesome-reporter/plugin')(on)
+      require('cypress-mochawesome-reporter/plugin')(on);
     },
   },
 });
