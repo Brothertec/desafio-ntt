@@ -1,7 +1,7 @@
 import { faker } from '@faker-js/faker';
 import NavPage from './navPage';
 
-export default class CadastrarProdutosPage extends NavPage {
+export default class CadastroProdutosPage extends NavPage {
     constructor() {
         super();
         this.nomeInput = '[data-testid="nome"]';
@@ -16,15 +16,15 @@ export default class CadastrarProdutosPage extends NavPage {
 
     fillProdutoForm(nome, preco, descricao, quantidade, imagem) {
         const productName = nome || faker.commerce.productName();
-        const productPrice = preco || faker.number.int({ min: 10, max: 300 });
+        const productPrice = Number.isInteger(preco) ? preco : faker.number.int({ min: 10, max: 300 });
         const productDescription = descricao || faker.commerce.productDescription();
         const productQuantity = quantidade || faker.number.int({ min: 1, max: 100 });
         const productImage = imagem || this.defaultImage;
 
-        cy.get(this.nomeInput).type(productName);
-        cy.get(this.precoInput).type(productPrice);
-        cy.get(this.descricaoInput).type(productDescription);
-        cy.get(this.quantidadeInput).type(productQuantity);
+        cy.get(this.nomeInput).clear().type(productName);
+        cy.get(this.precoInput).clear().type(productPrice);
+        cy.get(this.descricaoInput).clear().type(productDescription);
+        cy.get(this.quantidadeInput).clear().type(productQuantity);
         cy.get(this.imagemInput).selectFile(productImage);
         Cypress.expose('productName', productName);
         Cypress.expose('productPrice', productPrice);

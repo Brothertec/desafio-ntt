@@ -9,6 +9,7 @@ module.exports = defineConfig({
       apiUrl: 'https://serverest.dev',
     },
     specPattern: 'cypress/**/*.cy.{js,jsx,ts,tsx}',
+    testIsolation: true,
     setupNodeEvents(on, config) {
       // implement node event listeners here
     },
