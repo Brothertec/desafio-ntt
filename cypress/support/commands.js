@@ -39,6 +39,8 @@ Cypress.Commands.add('criaAdminUserELoga', () => {
         if (response.status === 200) {
             expect(response.body.authorization).to.be.not.empty;
             Cypress.expose('adminToken', response.body.authorization);
+            Cypress.expose('adminEmail', 'automation@serverest.dev');
+            Cypress.expose('adminPassword', 'teste');
         } else {
             cy.request({
                 method: 'POST',
@@ -50,7 +52,7 @@ Cypress.Commands.add('criaAdminUserELoga', () => {
                     administrador: 'true',
                 },
             }).then((response) => {
-                Cypress.expose('userId', response.body._id);
+                Cypress.expose('adminUserId', response.body._id);
                 cy.request({
                     method: 'POST',
                     url: `${Cypress.expose('apiUrl')}/login`,
@@ -61,6 +63,8 @@ Cypress.Commands.add('criaAdminUserELoga', () => {
                 }).then((response) => {
                     expect(response.body.authorization).to.be.not.empty;
                     Cypress.expose('adminToken', response.body.authorization);
+                    Cypress.expose('adminEmail', 'automation@serverest.dev');
+                    Cypress.expose('adminPassword', 'teste');
                 });
             });
         }
@@ -82,6 +86,8 @@ Cypress.Commands.add('criaUsuarioRandomicoELoga', () => {
     }).then((response) => {
         expect(response.status).to.eq(201);
         expect(response.body.message).to.eq('Cadastro realizado com sucesso');
+        Cypress.expose('userEmail', email);
+        Cypress.expose('userPassword', password);
         Cypress.expose('userId', response.body._id);
         cy.request({
             method: 'POST',
@@ -141,7 +147,6 @@ Cypress.Commands.add('criaCarrinho', () => {
 })
 
 Cypress.Commands.add('verificaQueCarrinhoFoiCriado', () => {
-    cy.log(Cypress.expose('userId'));
     cy.request({
         method: 'GET',
         url: `${Cypress.expose('apiUrl')}/carrinhos`,
@@ -182,6 +187,30 @@ Cypress.Commands.add('deletaProduto', ( type ) => {
         },
         failOnStatusCode: false,
     }).as('deleteProduct')
+})
+
+Cypress.Commands.add('deletaProdutoPorNome', ( nome ) => {
+    cy.request({
+        method: 'GET',
+        url: `${Cypress.expose('apiUrl')}/produtos`,
+        headers: {
+            Authorization: Cypress.expose('adminToken'),
+        },
+    }).then((response) => {
+        const product = response.body.produtos.find(p => p.nome === nome);
+        if (product) {
+            cy.request({
+                method: 'DELETE',
+                url: `${Cypress.expose('apiUrl')}/produtos/${product._id}`,
+                headers: {
+                    Authorization: Cypress.expose('adminToken'),
+                }
+            }).then((response) => {
+                expect(response.status).to.eq(200);
+                expect(response.body.message).to.eq('Registro excluído com sucesso');
+            }).as('deleteProductPorNome')
+        }
+    })
 })
 
 Cypress.Commands.add('verificaQueProdutoNaoPodeSerDeletado', ( status, message ) => {
